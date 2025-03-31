@@ -1,7 +1,7 @@
 import { config } from 'dotenv';
 config();
 
-export const getEnv = (key: string, defaultValue: string) => {
+export const getEnv = (key: string, defaultValue = '') => {
   const value = process.env[key];
   if (value === undefined) {
     if (defaultValue) return defaultValue;

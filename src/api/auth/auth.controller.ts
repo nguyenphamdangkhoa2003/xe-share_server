@@ -12,4 +12,13 @@ export class AuthController {
     const users = await this.clerkClient.users.getUserList();
     return res.status(HTTPSTATUS.OK).json(users);
   });
+
+  public Create = asyncController(async (req: Request, res: Response, next: NextFunction) => {
+    const userData = req.body;
+    const user = await this.clerkClient.users.createUser(userData);
+    res.status(HTTPSTATUS.CREATED).json({
+      message: 'User created',
+      user,
+    });
+  });
 }

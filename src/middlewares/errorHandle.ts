@@ -1,7 +1,6 @@
 import { ErrorRequestHandler, Request, Response } from 'express';
 import { HTTPSTATUS } from '../config/http.config';
 import { AppError } from '../common/utils/AppError';
-
 export const errorhandle: ErrorRequestHandler = (error, req: Request, res: Response, next): any => {
   console.error('Error occured on PATH: ', req.path, error);
 
@@ -15,6 +14,12 @@ export const errorhandle: ErrorRequestHandler = (error, req: Request, res: Respo
     return res.status(error.statusCode).json({
       message: error.message,
       erroCode: error.errorCode,
+    });
+  }
+  if (error.clerkError) {
+    return res.status(error.status).json({
+      message: 'Response from clerk',
+      errors: error.errors,
     });
   }
   return res.status(HTTPSTATUS.INTERNAL_SERVER_ERROR).json({

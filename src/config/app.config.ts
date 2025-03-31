@@ -5,6 +5,7 @@ const appConfig = () => ({
   PORT: getEnv('PORT', '8000'),
   BASE_PATH: getEnv('BASE_PATH', '/api/v1'),
   MONGO_URI: getEnv('MONGO_URI', 'localhost'),
+  CLERK_SIGN_IN_URL: getEnv('CLERK_SIGN_IN_URL'),
 });
 
 export const config = appConfig();
