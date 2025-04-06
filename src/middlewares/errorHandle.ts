@@ -17,9 +17,11 @@ export const errorhandle: ErrorRequestHandler = (error, req: Request, res: Respo
     });
   }
   if (error.clerkError) {
+    console.log({
+      message: error.errors[0].longMessage,
+    });
     return res.status(error.status).json({
-      message: 'Response from clerk',
-      errors: error.errors,
+      message: error.errors[0].longMessage,
     });
   }
   return res.status(HTTPSTATUS.INTERNAL_SERVER_ERROR).json({

@@ -12,7 +12,8 @@ import { errorhandle } from './middlewares/errorHandle';
 import { HTTPSTATUS } from './config/http.config';
 import { asyncController } from './middlewares/asyncHandler';
 import { clerkMiddleware } from '@clerk/express';
-import authRoutes from './api/auth/auth.routes';
+import emailRouter from './api/email/email.routes';
+import userRoutes from './api/users/user.routes';
 // Load environment variables
 
 // Initialize Express app
@@ -29,11 +30,11 @@ app.use(
   }),
 );
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
-app.use(limiter);
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+// });
+// app.use(limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -58,7 +59,8 @@ app.get(
   }),
 );
 
-app.use(`${config.BASE_PATH}`, authRoutes);
+app.use(`${config.BASE_PATH}`, userRoutes);
+app.use(`${config.BASE_PATH}`, emailRouter);
 app.listen(config.PORT, async () => {
   console.log(`Server listenting on port: ${config.PORT}`);
   connectionDatabase();
